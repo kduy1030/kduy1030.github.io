@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giới thiệu bản thân</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; font-family:"Montserrat",sans-serif; }
+    body {
+      background:#2f2f2f;
+      min-height:100vh;
+      display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+    .container {
+      width:90%; max-width:1000px;
+      height:80vh;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      grid-template-rows:1fr 1fr;
+      gap:12px;
+      position:relative;
+      background:#0e2f3d;
+      padding:12px;
+      border-radius:12px;
+    }
+    .box, .center-box {
+      background:white;
+      border:3px solid #0d4b63;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.25rem; font-weight:600; color:#111;
+      border-radius:8px; cursor:pointer;
+      transition:all .22s ease;
+      text-decoration:none;
+    }
+
+    /* hiệu ứng hover của 4 box góc */
+    .box:hover {
+      transform:translateY(-6px) scale(1.02);
+      box-shadow:0 8px 24px rgba(0,0,0,0.25);
+      border-color:#00bfff;
+    }
+
+    /* riêng ô trung tâm: KHÔNG di chuyển, chỉ nổi sáng */
+    .center-box:hover {
+      transform:scale(1.02);
+      box-shadow:0 8px 24px rgba(0,0,0,0.25);
+      border-color:#00bfff;
+    }
+
+    .box:active, .center-box:active { transform:scale(0.96); transition:transform .08s; }
+
+    .center-box {
+      position:absolute;
+      top:50%; left:50%;
+      width:38%; height:34%;
+      transform:translate(-50%,-50%);
+      font-size:1.15rem; font-weight:700;
+    }
+
+    /* grid placement cho 4 ô góc */
+    .grid-box-1 { grid-column:1/2; grid-row:1/2; }
+    .grid-box-2 { grid-column:2/3; grid-row:1/2; }
+    .grid-box-3 { grid-column:1/2; grid-row:2/3; }
+    .grid-box-4 { grid-column:2/3; grid-row:2/3; }
+
+    a.box, a.center-box { display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container" role="navigation" aria-label="Menu giới thiệu">
+    <a class="box grid-box-1" href="hocvan.html">Trình độ học vấn</a>
+    <a class="box grid-box-2" href="sothich.html">Sở thích</a>
+    <a class="box grid-box-3" href="diemmanh.html">Điểm mạnh</a>
+    <a class="box grid-box-4" href="diemyeu.html">Điểm yếu</a>
+    <a class="center-box" href="thongtin.html">Thông tin cơ bản</a>
+  </div>
+
+  <script>
+    // hiệu ứng nhỏ khi click
+    document.querySelectorAll('a.box, a.center-box').forEach(el => {
+      el.addEventListener('click', (e) => {
+        el.style.transform = 'scale(0.88)';
+        setTimeout(() => el.style.transform = '', 160);
+      });
+    });
+  </script>
+</body>
+</html>
