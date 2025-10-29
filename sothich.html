@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sở thích - Trương Công Khánh Duy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e9f4ff, #f9fcff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card-container {
+      position: relative;
+      width: 500px;
+      height: 380px;
+      perspective: 1000px;
+    }
+
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #66b3ff;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+      color: #0d2e4f;
+      cursor: pointer;
+      transition: transform 0.6s ease, left 0.6s ease, box-shadow 0.3s ease;
+      left: 0;
+      padding: 24px;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Trạng thái bay sang trái (vẫn còn mép trong màn hình) */
+    .card.fly-out {
+      transform: scale(0.9) rotate(-5deg);
+      left: -70%;
+    }
+
+    /* Trạng thái trở lại giữa */
+    .card.fly-back {
+      transform: scale(1) rotate(0deg);
+      left: 0;
+    }
+
+    .card h2 {
+      margin-bottom: 12px;
+      color: #003366;
+    }
+
+    .info-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      text-align: left;
+      width: 100%;
+      padding: 0 16px;
+    }
+
+    /* Gradient dịu nhẹ khác nhau cho từng ô */
+    .card:nth-child(1) { background: linear-gradient(135deg, #d0f0ff, #b8e0ff); }
+    .card:nth-child(2) { background: linear-gradient(135deg, #d6f7e7, #c0f2d6); }
+    .card:nth-child(3) { background: linear-gradient(135deg, #fff2cc, #ffeab0); }
+    .card:nth-child(4) { background: linear-gradient(135deg, #f9d0ff, #f2b8ff); }
+    .card:nth-child(5) { background: linear-gradient(135deg, #ffd6d6, #ffbaba); }
+    .card:nth-child(6) { background: linear-gradient(135deg, #e6e6ff, #d5d5ff); }
+
+    a.back {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      color: #0077cc;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    a.back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="card-container">
+    <!-- 1 -->
+    <div class="card">
+      <h2>Sở thích</h2>
+      <div class="info-text">
+        <p>Một chút về những điều tôi yêu thích trong cuộc sống 😊</p>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <h2>Đọc truyện</h2>
+      <div class="info-text">
+        <p>Đặc biệt là <strong>Conan</strong> nhaaa 📚</p>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <h2>Coi anime</h2>
+      <div class="info-text">
+        <p>Coi giải trí thôi 😆 (À có rcm mn coi <strong>Dr. Stone</strong> – Tiến sĩ đá:)) nha)</p>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card">
+      <h2>Thể thao</h2>
+      <div class="info-text">
+        <p>Thích <strong>Bóng chuyền</strong> (Ai có kèo mô nhớ rủ em với 🏐)</p>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card">
+      <h2>Ngắm trời</h2>
+      <div class="info-text">
+        <p> <em>bình minh</em>, <em>hoàng hôn</em>, <em>nhật thực</em>, <em>nguyệt thực</em>, 
+           <em>mưa sao băng</em>, <em>sao chổi</em>, <em>cầu vồng</em>, v.v... 🌅🌈</p>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card">
+      <h2>Vọc máy tính</h2>
+      <div class="info-text">
+        <p>Vọc code, nghịch mấy thứ vui vui với máy tính =)) 💻</p>
+      </div>
+    </div>
+  </div>
+
+  <a class="back" href="index.html">← Quay lại</a>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+
+    // Xếp chồng các ô
+    cards.forEach((card, index) => {
+      card.style.zIndex = cards.length - index;
+    });
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        // Nếu đang ở giữa → bay sang trái
+        if (!card.classList.contains('fly-out')) {
+          card.classList.add('fly-out');
+          card.classList.remove('fly-back');
+          if (index + 1 < cards.length) {
+            cards[index + 1].style.zIndex = 10;
+          }
+        } else {
+          // Nếu đang ở mép trái → quay lại giữa
+          card.classList.remove('fly-out');
+          card.classList.add('fly-back');
+          cards.forEach((c, i) => {
+            if (i > index) c.style.zIndex = cards.length - i;
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
