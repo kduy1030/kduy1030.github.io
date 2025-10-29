@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thông tin cơ bản - Trương Công Khánh Duy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e9f4ff, #f9fcff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card-container {
+      position: relative;
+      width: 480px;
+      height: 360px;
+      perspective: 1000px;
+    }
+
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #66b3ff;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+      color: #0d2e4f;
+      cursor: pointer;
+      transition: transform 0.6s ease, right 0.6s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+      right: 0;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Trạng thái bay sang phải */
+    .card.fly-out {
+      transform: scale(0.9) rotate(5deg);
+      right: -70%;
+    }
+
+    /* Trạng thái trở lại */
+    .card.fly-back {
+      transform: scale(1) rotate(0deg);
+      right: 0;
+    }
+
+    .card h2 {
+      margin-bottom: 12px;
+    }
+
+    /* Gradient dịu nhẹ khác nhau */
+    .card:nth-child(1) { background: linear-gradient(135deg, #d0f0ff, #b8e0ff); }
+    .card:nth-child(2) { background: linear-gradient(135deg, #d6f7e7, #c0f2d6); }
+    .card:nth-child(3) { background: linear-gradient(135deg, #fff2cc, #ffeab0); }
+    .card:nth-child(4) { background: linear-gradient(135deg, #f9d0ff, #f2b8ff); }
+    .card:nth-child(5) { background: linear-gradient(135deg, #ffd6d6, #ffbaba); }
+    .card:nth-child(6) { background: linear-gradient(135deg, #e6e6ff, #d5d5ff); }
+    .card:nth-child(7) { background: linear-gradient(135deg, #eaf0ff, #dbe6ff); }
+
+    .info-text {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      padding: 0 28px;
+    }
+
+    a.back {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      color: #0077cc;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    a.back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="card-container">
+    <div class="card">
+      <h2>Họ tên</h2>
+      <div class="info-text"><strong>Trương Công Khánh Duy</strong></div>
+    </div>
+
+    <div class="card">
+      <h2>Ngày sinh</h2>
+      <div class="info-text">01/03/2007</div>
+    </div>
+
+    <div class="card">
+      <h2>Giới tính</h2>
+      <div class="info-text">Nam</div>
+    </div>
+
+    <div class="card">
+      <h2>Địa chỉ</h2>
+      <div class="info-text">(Cũ) Huyện Nam Đàn – Tỉnh Nghệ An</div>
+    </div>
+
+    <div class="card">
+      <h2>Liên hệ</h2>
+      <div class="info-text">
+        <p>SĐT: ...</p>
+        <p>Facebook: <a href="https://www.facebook.com/kduy1030/" target="_blank">kduy1030</a></p>
+        <p>Gmail: truongcongkhanhduy2007@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Tình trạng mối quan hệ</h2>
+      <div class="info-text">Độc toàn thân</div>
+    </div>
+
+    <div class="card">
+      <h2>Mục tiêu sắp tới</h2>
+      <div class="info-text">...</div>
+    </div>
+  </div>
+
+  <a class="back" href="index.html">← Quay lại</a>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    let current = 0;
+
+    // xếp chồng các ô
+    cards.forEach((card, index) => {
+      card.style.zIndex = cards.length - index;
+    });
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        // nếu đang ở giữa → bay sang phải
+        if (!card.classList.contains('fly-out')) {
+          card.classList.add('fly-out');
+          card.classList.remove('fly-back');
+          // hiện ô kế tiếp nếu có
+          if (index + 1 < cards.length) {
+            cards[index + 1].style.zIndex = 10;
+          }
+        } else {
+          // nếu đang ở bên phải → bay ngược lại giữa
+          card.classList.remove('fly-out');
+          card.classList.add('fly-back');
+          cards.forEach((c, i) => {
+            if (i > index) c.style.zIndex = cards.length - i;
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
